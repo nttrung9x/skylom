@@ -5,7 +5,6 @@ function Auto_Login_Skylom()
 	if(full_ip_sv.includes(ip_server_captcha69))
 	{
 		var _now = Date.now();
-		var _location_this = window.location;
 		
 		console.log(_now + " - Key OK");
 		var src = document.documentElement.innerHTML;
@@ -19,7 +18,7 @@ function Auto_Login_Skylom()
 				ele.click();
 			}
 		}else
-		if(src.includes("Choose an account") || _location_this.includes("accounts.google.com/signin/oauth"))
+		if(src.includes("Choose an account"))
 		{
 			console.log(_now + " - Choose an account");
 			var ele = document.evaluate("html/body/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div/div/form/span/section/div/div/div/div/ul/li[1]/div/div[1]/div/div[2]/div[1]", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
