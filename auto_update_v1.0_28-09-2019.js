@@ -19,15 +19,40 @@ function checkCompletion_captchaguru(code, key, repeat) {
         url: url,
         data: ''
     }, function(responseText) {
-    	console.log(url);
-	console.log("res:"+responseText);
-        if(responseText.trim().includes("CAPCHA_NOT_READY")){
+    	//console.log(url);
+	console.log("res:"+responseText.trim());
+        if(responseText.trim().includes("CAPCHA_NOT_READY"))
+		{
             setTimeout(function() {
                 checkCompletion_captchaguru(code, key, repeat);
             }, repeat)
-        }else{
+        } else if(responseText.trim().includes("ERROR"))
+		{
+			setTimeout(makeRequest_captchaguru, 1000);
+		}else{
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
+        }
+    });
+}
+
+function makeRequest_captchaguru(result){
+    sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
+	let key = "0372.972.971";
+    let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
+    chrome.runtime.sendMessage({
+        method: 'GET',
+        action: 'xhttp',
+        url: url,
+        data: ''
+    }, function(responseText) {
+	//console.log(url);
+	console.log("in:"+responseText.trim());
+        if(responseText.trim().includes('OK|')==false){
+            sendMessage("<b>"+responseText.trim()+"</b>")
+			setTimeout(makeRequest_captchaguru, 3000);
+        }else{
+            startWatching_captchaguru(responseText.trim().substring(3), key);
         }
     });
 }
@@ -165,27 +190,6 @@ function startWatching_captchaguru(code, key) {
     setTimeout(function() {
         checkCompletion_captchaguru(code, key, repeat);
     }, initial);
-}
-
-function makeRequest_captchaguru(result){
-    sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
-	let key = "0372.972.971";
-    let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
-    chrome.runtime.sendMessage({
-        method: 'GET',
-        action: 'xhttp',
-        url: url,
-        data: ''
-    }, function(responseText) {
-	console.log(url);
-	console.log("in:"+responseText);
-        if(responseText.trim().includes('OK|')==false){
-            sendMessage("<b>"+responseText.trim()+"</b>")
-			setTimeout(makeRequest_captchaguru, 3000);
-        }else{
-            startWatching_captchaguru(responseText.trim().substring(3), key);
-        }
-    });
 }
 
 function onGotauto(item){
