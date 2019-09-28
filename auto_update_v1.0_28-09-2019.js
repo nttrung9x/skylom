@@ -19,7 +19,8 @@ function checkCompletion_captchaguru(code, key, repeat) {
         url: url,
         data: ''
     }, function(responseText) {
-    	console.log("res:"+responseText);
+    	console.log(url);
+	console.log("res:"+responseText);
         if(responseText.trim().includes("CAPCHA_NOT_READY")){
             setTimeout(function() {
                 checkCompletion_captchaguru(code, key, repeat);
@@ -176,6 +177,7 @@ function makeRequest_captchaguru(result){
         url: url,
         data: ''
     }, function(responseText) {
+	console.log(url);
 	console.log("in:"+responseText);
         if(responseText.trim().includes('OK|')==false){
             sendMessage("<b>"+responseText.trim()+"</b>")
