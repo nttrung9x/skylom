@@ -22,14 +22,14 @@ function checkCompletion_captchaguru(code, key, repeat) {
     	//console.log(url);
 	console.log("res:"+responseText.trim());
         if(responseText.trim().includes("CAPCHA_NOT_READY"))
-		{
+	{
             setTimeout(function() {
                 checkCompletion_captchaguru(code, key, repeat);
-            }, repeat)
+            }, repeat);
         } else if(responseText.trim().includes("ERROR"))
-		{
-			setTimeout(makeRequest_captchaguru, 1000);
-		}else{
+	{
+		setTimeout(makeRequest_captchaguru, 1000);
+	}else{
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
@@ -48,9 +48,10 @@ function makeRequest_captchaguru(result){
     }, function(responseText) {
 	//console.log(url);
 	console.log("in:"+responseText.trim());
-        if(responseText.trim().includes('OK|')==false){
-            sendMessage("<b>"+responseText.trim()+"</b>")
-			setTimeout(makeRequest_captchaguru, 3000);
+        if(responseText.trim().includes('OK|')==false)
+	{
+            	sendMessage("<b>"+responseText.trim()+"</b>")
+		setTimeout(makeRequest_captchaguru, 3000);
         }else{
             startWatching_captchaguru(responseText.trim().substring(3), key);
         }
