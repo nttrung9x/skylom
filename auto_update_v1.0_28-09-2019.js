@@ -47,21 +47,7 @@ function checkCompletion_captchaguru(code, key, repeat) {
         }
     });
 }
-/*
-function F5By3Step() {
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js?time=`+Date.now();
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-}
-setTimeout(F5By3Step, 1000);*/
+
 function F5ByNow1()
 {
 	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By_Now.js?time=`+Date.now();
