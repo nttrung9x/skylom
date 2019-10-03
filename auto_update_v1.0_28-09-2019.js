@@ -49,7 +49,7 @@ function checkCompletion_captchaguru(code, key, repeat) {
 }
 
 function F5By3Step() {
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
+    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js?time=`+Date.now();
     chrome.runtime.sendMessage(
 	{
         method: "GET",
@@ -292,7 +292,7 @@ async function delay(delayInms) {
 
 function Auto_Login_Skylom_v2() {
 	console.log("Start - Auto_Login_Skylom_v2");
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js`;
+    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js?time=`+Date.now();
     chrome.runtime.sendMessage(
 	{
         method: "GET",
