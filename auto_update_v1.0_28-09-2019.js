@@ -267,7 +267,7 @@ async function delay(delayInms) {
 
 function Auto_Login_Skylom_v2() {
 	console.log("Start - Auto_Login_Skylom_v2");
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js?time=`+Date.now();
+    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js`;
     chrome.runtime.sendMessage(
 	{
         method: "GET",
