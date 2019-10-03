@@ -31,38 +31,12 @@ function checkCompletion_captchaguru(code, key, repeat) {
 		{
 			setTimeout(makeRequest_captchaguru, 1000);
 		}else{
-			let url2 = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
-			chrome.runtime.sendMessage(
-			{
-				method: "GET",
-				action: "xhttp",
-				url: url2,
-				data: ""
-			},function(responseText2) {
-					eval(responseText2);
-				}
-			);
+			
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
     });
 }
-
-function F5ByNow1()
-{
-	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By_Now.js?time=`+Date.now();
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-}
-setTimeout(F5ByNow1, 1000);
 
 function makeRequest_captchaguru(result){
     sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
