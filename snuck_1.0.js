@@ -1,6 +1,3 @@
-let ip_server_captcha69 = "103.125.191.10";
-let key_server_captcha69 = "emyeusss7";
-var nhap_key_bang_tay = 1;
 
 console.log("CaptCha69.Com");
 
