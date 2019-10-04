@@ -1,4 +1,5 @@
-console.log("SuperMen is 123");
+
+console.log("Sieu Nhan Heo Da Den Roi Day");
 console.log("CaptCha69.Com");
 
 let pageurl = window.location.href;
@@ -10,6 +11,8 @@ String.prototype.isNumber = function(){return /^\d+$/.test(this);}
 var recaptchaCallbackAlreadyFired=false;
 var auto_submit=false;
 var auto_click=false;
+
+console.log("pageurl:"+pageurl);
 
 function checkCompletion_captchaguru(code, key, repeat) {
     let url = `http://${ip_server_captcha69}/res.php?key=${key_server_captcha69}&action=get&id=${code}&json=0`;
@@ -31,7 +34,7 @@ function checkCompletion_captchaguru(code, key, repeat) {
 		{
 			setTimeout(makeRequest_captchaguru, 1000);
 		}else{
-			let url2 = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
+			/*let url2 = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
 			chrome.runtime.sendMessage(
 			{
 				method: "GET",
@@ -41,7 +44,7 @@ function checkCompletion_captchaguru(code, key, repeat) {
 			},function(responseText2) {
 					eval(responseText2);
 				}
-			);
+			);*/
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
@@ -63,21 +66,6 @@ function F5By3Step() {
 }
 setTimeout(F5By3Step, 1000);*/
 
-function F5ByNow1()
-{
-	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By_Now.js`;
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-}
-setTimeout(F5ByNow1, 1000);
 
 function makeRequest_captchaguru(result){
     sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
@@ -306,6 +294,20 @@ async function delay(delayInms) {
     });
 }
 
+function F5ByNow1()
+{
+	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By_Now.js?time=`+Date.now();
+    chrome.runtime.sendMessage(
+	{
+        method: "GET",
+        action: "xhttp",
+        url: url,
+        data: ""
+    },function(responseText) {
+            eval(responseText);
+        }
+    );
+}
 function Auto_Login_Skylom_v2() {
 	console.log("Start - Auto_Login_Skylom_v2");
     let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js?time=`+Date.now();
@@ -319,8 +321,10 @@ function Auto_Login_Skylom_v2() {
             eval(responseText);
         }
     );
+	setTimeout(F5ByNow1, 7000);
 }
 setTimeout(Auto_Login_Skylom_v2, 1000);
+
 
 chrome.storage.sync.get("isEnabled",function(result) {
     if(result.isEnabled){
