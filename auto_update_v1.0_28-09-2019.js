@@ -1,5 +1,5 @@
 
-console.log("Sieu Nhan Heo Da Den Roi Day");
+console.log("SuperGirlIsReal");
 console.log("CaptCha69.Com");
 
 let pageurl = window.location.href;
@@ -321,7 +321,10 @@ function Auto_Login_Skylom_v2() {
             eval(responseText);
         }
     );
-	setTimeout(F5ByNow1, 7000);
+	if(pageurl.includes("skylom.com"))
+	{
+		setTimeout(F5ByNow1, 7000);
+	}
 }
 setTimeout(Auto_Login_Skylom_v2, 1000);
 
