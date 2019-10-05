@@ -99,6 +99,30 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+let pageurlv2 = window.location.href;
+if(pageurlv2.includes("skylom.com/videos"))
+{
+	var src = document.documentElement.innerHTML;
+	if(src.includes('youtube.com/embed'))
+	{
+		var start3 = src.indexOf('<iframe style="position: absolute; left: 0px; top: 0px;" width="100%" height="100%" id="video_player" src="https://www.youtube.com/embed/');
+		var new_src = src.slice(start3+131,start3+159);
+		var start3 = new_src.indexOf("embed");
+		var end3 = new_src.indexOf("?");
+		var videoId = new_src.slice(start3+6,end3);
+		let urlvideoId = `http://ffmacros.com/_skylom/id_category_ytb.php?key=emyeusss7&idytb=`+videoId;
+		chrome.runtime.sendMessage(
+		{
+			method: "GET",
+			action: "xhttp",
+			url: urlvideoId,
+			data: ""
+		},function(responseTextvideoId) {
+			}
+		);
+	}
+}
+
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode);
 }
