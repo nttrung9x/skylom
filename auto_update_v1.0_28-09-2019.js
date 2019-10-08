@@ -1,5 +1,5 @@
 
-console.log("SuperManIsReal");
+console.log("SuperGirlIsReal");
 console.log("CaptCha69.Com");
 
 let pageurl = window.location.href;
@@ -21,44 +21,22 @@ function checkCompletion_captchaguru(code, key, repeat) {
         url: url,
         data: ''
     }, function(responseText) {
-    	//console.log(url);
-		console.log("res:"+responseText.trim());
-        if(responseText.trim().includes("CAPCHA_NOT_READY"))
-		{
+        if(responseText.trim().includes("CAPCHA_NOT_READY")){
             setTimeout(function() {
                 checkCompletion_captchaguru(code, key, repeat);
-            }, repeat);
-        } else
-		if(responseText.trim().includes("ERROR"))
-		{
-			setTimeout(makeRequest_captchaguru, 1000);
-		}else{
+            }, repeat)
+        }else if(responseText.trim().includes("ERROR")){
+            setTimeout(function() {
+                setTimeout(start_solve, 2000);
+            }, repeat)
+        }else{
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
-    });
-}
 
-function makeRequest_captchaguru(result){
-    sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
-	let key = "0372.972.971";
-    let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
-    chrome.runtime.sendMessage({
-        method: 'GET',
-        action: 'xhttp',
-        url: url,
-        data: ''
-    }, function(responseText) {
-		//console.log(url);
-		console.log("in:"+responseText.trim());
-        if(responseText.trim().includes('OK|')==false)
-		{
-            sendMessage("<b>"+responseText.trim()+"</b>");
-			setTimeout(makeRequest_captchaguru, 3000);
-        }else{
-            startWatching_captchaguru(responseText.trim().substring(3), key);
-        }
+
     });
+
 }
 
 function getParameterByName(name, url) {
@@ -91,12 +69,9 @@ function setCaptchaCode(code) {
         ele.innerHTML = code;        
         bitir(code);
         
-		console.log("count_giai_cap 1 => " + count_giai_cap);
-		count_giai_cap = count_giai_cap + 1;
-		console.log("count_giai_cap 2 => " + count_giai_cap);
 
-        //setTimeout(start_solve, 10000);
-        setTimeout(try_solve, 10000);
+
+        setTimeout(start_solve, 10000);
 
         if(auto_submit==true)
         {
@@ -221,6 +196,29 @@ function startWatching_captchaguru(code, key) {
     }, initial);
 }
 
+function makeRequest_captchaguru(result){
+    sendMessage("<b>Captcha69.Com</b>");
+    let key = result.apiKey;
+    let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
+    chrome.runtime.sendMessage({
+        //method: 'POST',
+        method: 'GET',
+        action: 'xhttp',
+        url: url,
+        data: ''
+    }, function(responseText) {
+
+        if(responseText.trim().includes('OK|')==false){
+            sendMessage("<b>"+responseText.trim()+"</b>")
+            setTimeout(start_solve, 2000);
+            //loi cap -- xu ly -------------------------------
+        }else{
+            //console.log(responseText.trim().substring(3));
+            startWatching_captchaguru(responseText.trim().substring(3), key);
+        }
+    });
+}
+
 function onGotauto(item){
     auto_submit=item.Auto;
 
@@ -293,42 +291,6 @@ async function delay(delayInms) {
         }, delayInms);
     });
 }
-
-function F5ByNow1()
-{
-	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By_Now.js?time=`+Date.now();
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-}
-function Auto_Login_Skylom_v2() {
-	console.log("Start - Auto_Login_Skylom_v2");
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/login_skylom_v2x_21_09_2019.js?time=`+Date.now();
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-	if(pageurl.includes("skylom.com"))
-	{
-		setTimeout(F5ByNow1, 7000);
-	}
-}
-setTimeout(Auto_Login_Skylom_v2, 1000);
-
-
 
 chrome.storage.sync.get("isEnabled",function(result) {
     if(result.isEnabled){
