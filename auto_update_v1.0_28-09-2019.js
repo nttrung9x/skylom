@@ -91,9 +91,12 @@ function setCaptchaCode(code) {
         ele.innerHTML = code;        
         bitir(code);
         
+		console.log("count_giai_cap 1 => " + count_giai_cap);
 		count_giai_cap = count_giai_cap + 1;
+		console.log("count_giai_cap 2 => " + count_giai_cap);
 
         //setTimeout(start_solve, 10000);
+        setTimeout(try_solve, 10000);
 
         if(auto_submit==true)
         {
@@ -361,36 +364,6 @@ chrome.storage.sync.get("isEnabled",function(result) {
                 sample();
             }
             else{
-				if(count_giai_cap>0)
-				{
-					try_solve();
-					async function sample(){
-						let delayres = await delay(5000);
-						if(document.getElementById('solved')==null){
-							setTimeout(start_solve, 4000);
-						}
-						else{
-							if(auto_submit==true){
-								var afterElement;
-								let frames = document.getElementsByTagName("iframe");
-								for(let i = 0; i < frames.length; i++){
-									if(frames[i].offsetParent!=null){
-										let src = frames[i].getAttribute('src');
-										if(src != null && src.startsWith("https://www.google.com/recaptcha")){
-											id = getParameterByName("k", src);
-											if(id != "" && id != null && id != "6LfUZKkUAAAAAJ6J-iUArW3Sva3Iyxxitf8tDmoW"){
-												afterElement = frames[i];
-												break;
-											}
-										}
-									}
-								}
-								afterElement.closest('form').submit();
-							}
-						}
-					}
-					sample();
-				}
                 setTimeout(start_solve, 4000);
             }
         });
