@@ -12,8 +12,6 @@ var recaptchaCallbackAlreadyFired=false;
 var auto_submit=false;
 var auto_click=false;
 
-console.log("pageurl:"+pageurl);
-
 function checkCompletion_captchaguru(code, key, repeat) {
     let url = `http://${ip_server_captcha69}/res.php?key=${key_server_captcha69}&action=get&id=${code}&json=0`;
     chrome.runtime.sendMessage({
@@ -34,43 +32,13 @@ function checkCompletion_captchaguru(code, key, repeat) {
 		{
 			setTimeout(makeRequest_captchaguru, 1000);
 		}else{
-			/*let url2 = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js`;
-			chrome.runtime.sendMessage(
-			{
-				method: "GET",
-				action: "xhttp",
-				url: url2,
-				data: ""
-			},function(responseText2) {
-					eval(responseText2);
-				}
-			);*/
             console.log(responseText.trim().substring(3));
             setCaptchaCode(responseText.trim().substring(3));
         }
     });
 }
-/*
-function F5By3Step() {
-    let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/F5_By3_Step.js?time=`+Date.now();
-    chrome.runtime.sendMessage(
-	{
-        method: "GET",
-        action: "xhttp",
-        url: url,
-        data: ""
-    },function(responseText) {
-            eval(responseText);
-        }
-    );
-}
-setTimeout(F5By3Step, 1000);*/
-
 
 function makeRequest_captchaguru(result){
-	try_solve();
-	try_solve();
-	try_solve();
     sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
 	let key = "0372.972.971";
     let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
@@ -143,66 +111,6 @@ function auto_f5()
 {
 	location.reload();
 }
-/*
-function setCaptchaCode(code) {
-    let ele = document.getElementsByClassName("g-recaptcha-response")[0];
-    let ele0 = document.getElementsByClassName("g-recaptcha-response-0")[0];
-    let ele1 = document.getElementsByClassName("g-recaptcha-response-1")[0];
-    let ele2 = document.getElementsByClassName("g-recaptcha-response-2")[0];
-    let ele3 = document.getElementsByClassName("g-recaptcha-response-3")[0];
-    let ele4 = document.getElementsByClassName("g-recaptcha-response-4")[0];
-    let ele5 = document.getElementsByClassName("g-recaptcha-response-5")[0];
-    let ele6 = document.getElementsByClassName("g-recaptcha-response-6")[0];
-    let ele7 = document.getElementsByClassName("g-recaptcha-response-7")[0];
-    let ele8 = document.getElementsByClassName("g-recaptcha-response-8")[0];
-    let ele9 = document.getElementsByClassName("g-recaptcha-response-9")[0];
-	if(ele != null){
-        ele.innerHTML = code;    
-	}
-	if(ele0 != null){
-        ele0.innerHTML = code;    
-	}
-	if(ele1 != null){
-        ele1.innerHTML = code;    
-	}
-	if(ele2 != null){
-        ele2.innerHTML = code;    
-	}
-	if(ele3 != null){
-        ele3.innerHTML = code;    
-	}
-	if(ele4 != null){
-        ele4.innerHTML = code;    
-	}
-	if(ele5 != null){
-        ele5.innerHTML = code;    
-	}
-	if(ele6 != null){
-        ele6.innerHTML = code;    
-	}
-	if(ele7 != null){
-        ele7.innerHTML = code;    
-	}
-	if(ele8 != null){
-        ele8.innerHTML = code;    
-	}
-	if(ele9 != null){
-        ele9.innerHTML = code;    
-	}
-    console.log(ele);
-    sendMessage("<b>XONG</b>");
-    setChecked();
-        
-    bitir(code);
-    setTimeout(start_solve, 5000);
-    ////////setTimeout(auto_f5, 10000);
-	
-    if(auto_submit==true)
-    {
-        afterElement.closest('form').submit();
-    }
-    
-}*/
 
 function setCaptchaCode(code) {
     let ele = document.getElementsByClassName("g-recaptcha-response")[0];
@@ -450,7 +358,14 @@ chrome.storage.sync.get("isEnabled",function(result) {
                 sample();
             }
             else{
-                setTimeout(start_solve, 4000);
+                //setTimeout(start_solve, 4000);
+		    try_solve();
+                async function sample(){
+                    let delayres = await delay(5000);
+                    if(document.getElementById('solved')==null){
+                        setTimeout(start_solve, 4000);
+                    }
+		}
             }
         });
     }
