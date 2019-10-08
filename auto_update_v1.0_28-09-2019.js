@@ -11,6 +11,7 @@ String.prototype.isNumber = function(){return /^\d+$/.test(this);}
 var recaptchaCallbackAlreadyFired=false;
 var auto_submit=false;
 var auto_click=false;
+let count_giai_cap = 0;
 
 function checkCompletion_captchaguru(code, key, repeat) {
     let url = `http://${ip_server_captcha69}/res.php?key=${key_server_captcha69}&action=get&id=${code}&json=0`;
@@ -90,9 +91,9 @@ function setCaptchaCode(code) {
         ele.innerHTML = code;        
         bitir(code);
         
+		count_giai_cap = count_giai_cap + 1;
 
-
-        setTimeout(start_solve, 10000);
+        //setTimeout(start_solve, 10000);
 
         if(auto_submit==true)
         {
@@ -360,7 +361,50 @@ chrome.storage.sync.get("isEnabled",function(result) {
                 sample();
             }
             else{
-                setTimeout(start_solve, 4000);
+				if(count_giai_cap>0)
+				{
+					chrome.storage.sync.get("Auto",onGotauto);
+					chrome.storage.sync.get("AutoClick",function(result){
+					if(result.AutoClick)
+					{
+						try_solve();
+						async function sample()
+						{
+							let delayres = await delay(5000);
+							if(document.getElementById('solved')==null)
+							{
+								setTimeout(start_solve, 4000);
+							}
+							else{
+								if(auto_submit==true)
+								{
+									var afterElement;
+									let frames = document.getElementsByTagName("iframe");
+									for(let i = 0; i < frames.length; i++)
+									{
+										if(frames[i].offsetParent!=null)
+										{
+											let src = frames[i].getAttribute('src');
+											if(src != null && src.startsWith("https://www.google.com/recaptcha"))
+											{
+												id = getParameterByName("k", src);
+												if(id != "" && id != null && id != "6LfUZKkUAAAAAJ6J-iUArW3Sva3Iyxxitf8tDmoW")
+												{
+													afterElement = frames[i];
+													break;
+												}
+											}
+										}
+									}
+									afterElement.closest('form').submit();
+								}
+							}
+						}
+						sample();
+					}
+				}else{
+					setTimeout(start_solve, 4000);
+				}
             }
         });
     }
