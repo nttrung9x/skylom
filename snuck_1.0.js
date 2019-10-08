@@ -334,7 +334,14 @@ chrome.storage.sync.get("isEnabled",function(result) {
                 sample();
             }
             else{
-                setTimeout(start_solve, 4000);
+                //setTimeout(start_solve, 4000);
+		    try_solve();
+                async function sample(){
+                    let delayres = await delay(5000);
+                    if(document.getElementById('solved')==null){
+                        setTimeout(start_solve, 4000);
+                    }
+		}
             }
         });
     }
