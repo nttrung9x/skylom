@@ -292,7 +292,7 @@ function Auto_Login_Skylom_v2() {
             eval(responseText);
         }
     );
-	if(pageurl.includes("skylom.com"))
+	if(pageurl.includes("snuckls.com"))
 	{
 		setTimeout(F5ByNow1, 7000);
 	}
