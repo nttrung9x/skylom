@@ -72,7 +72,17 @@ function setCaptchaCode(code) {
         ele.innerHTML = code;        
         bitir(code);
         //setTimeout(start_solve, 10000);
-        setTimeout(auto_f5, 10000);
+        //setTimeout(auto_f5, 10000);
+	setTimeout(function() {
+		try_solve();
+		async function sample()
+		{
+			let delayres = await delay(5000);
+			if(document.getElementById('solved')==null){
+				setTimeout(start_solve, 4000);
+			}
+		}
+	}, 10000);
         if(auto_submit==true)
         {
             afterElement.closest('form').submit();
