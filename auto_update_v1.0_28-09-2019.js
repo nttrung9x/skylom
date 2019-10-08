@@ -217,29 +217,6 @@ function startWatching_captchaguru(code, key) {
     }, initial);
 }
 
-function makeRequest_captchaguru(result){
-    sendMessage("<b>Captcha69.Com</b>");
-    let key = result.apiKey;
-    let url = `http://171.246.119.207/in.php?key=${key}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
-    chrome.runtime.sendMessage({
-        //method: 'POST',
-        method: 'GET',
-        action: 'xhttp',
-        url: url,
-        data: ''
-    }, function(responseText) {
-
-        if(responseText.trim().includes('OK|')==false){
-            sendMessage("<b>"+responseText.trim()+"</b>")
-            setTimeout(start_solve, 2000);
-            //loi cap -- xu ly -------------------------------
-        }else{
-            //console.log(responseText.trim().substring(3));
-            startWatching_captchaguru(responseText.trim().substring(3), key);
-        }
-    });
-}
-
 function onGotauto(item){
     auto_submit=item.Auto;
 
