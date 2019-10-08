@@ -140,7 +140,7 @@ function auto_f5()
 {
 	location.reload();
 }
-
+/*
 function setCaptchaCode(code) {
     let ele = document.getElementsByClassName("g-recaptcha-response")[0];
     let ele0 = document.getElementsByClassName("g-recaptcha-response-0")[0];
@@ -199,9 +199,9 @@ function setCaptchaCode(code) {
         afterElement.closest('form').submit();
     }
     
-}
+}*/
 
-/*function setCaptchaCode(code) {
+function setCaptchaCode(code) {
     let ele = document.getElementsByClassName("g-recaptcha-response")[0];
     console.log(ele);
     sendMessage("<b>XONG</b>");
@@ -216,7 +216,7 @@ function setCaptchaCode(code) {
             afterElement.closest('form').submit();
         }
     }
-}*/
+}
 
 function bitir(code)
 {
