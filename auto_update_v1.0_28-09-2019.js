@@ -143,6 +143,66 @@ function auto_f5()
 
 function setCaptchaCode(code) {
     let ele = document.getElementsByClassName("g-recaptcha-response")[0];
+    let ele0 = document.getElementsByClassName("g-recaptcha-response-0")[0];
+    let ele1 = document.getElementsByClassName("g-recaptcha-response-1")[0];
+    let ele2 = document.getElementsByClassName("g-recaptcha-response-2")[0];
+    let ele3 = document.getElementsByClassName("g-recaptcha-response-3")[0];
+    let ele4 = document.getElementsByClassName("g-recaptcha-response-4")[0];
+    let ele5 = document.getElementsByClassName("g-recaptcha-response-5")[0];
+    let ele6 = document.getElementsByClassName("g-recaptcha-response-6")[0];
+    let ele7 = document.getElementsByClassName("g-recaptcha-response-7")[0];
+    let ele8 = document.getElementsByClassName("g-recaptcha-response-8")[0];
+    let ele9 = document.getElementsByClassName("g-recaptcha-response-9")[0];
+	if(ele != null){
+        ele.innerHTML = code;    
+	}
+	if(ele0 != null){
+        ele0.innerHTML = code;    
+	}
+	if(ele1 != null){
+        ele1.innerHTML = code;    
+	}
+	if(ele2 != null){
+        ele2.innerHTML = code;    
+	}
+	if(ele3 != null){
+        ele3.innerHTML = code;    
+	}
+	if(ele4 != null){
+        ele4.innerHTML = code;    
+	}
+	if(ele5 != null){
+        ele5.innerHTML = code;    
+	}
+	if(ele6 != null){
+        ele6.innerHTML = code;    
+	}
+	if(ele7 != null){
+        ele7.innerHTML = code;    
+	}
+	if(ele8 != null){
+        ele8.innerHTML = code;    
+	}
+	if(ele9 != null){
+        ele9.innerHTML = code;    
+	}
+    console.log(ele);
+    sendMessage("<b>XONG</b>");
+    setChecked();
+        
+    bitir(code);
+    setTimeout(start_solve, 5000);
+    ////////setTimeout(auto_f5, 10000);
+	
+    if(auto_submit==true)
+    {
+        afterElement.closest('form').submit();
+    }
+    
+}
+
+/*function setCaptchaCode(code) {
+    let ele = document.getElementsByClassName("g-recaptcha-response")[0];
     console.log(ele);
     sendMessage("<b>XONG</b>");
     setChecked();
@@ -156,7 +216,7 @@ function setCaptchaCode(code) {
             afterElement.closest('form').submit();
         }
     }
-}
+}*/
 
 function bitir(code)
 {
