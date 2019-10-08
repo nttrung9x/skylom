@@ -365,31 +365,23 @@ chrome.storage.sync.get("isEnabled",function(result) {
 				{
 					chrome.storage.sync.get("Auto",onGotauto);
 					chrome.storage.sync.get("AutoClick",function(result){
-					if(result.AutoClick)
-					{
+					if(result.AutoClick){
 						try_solve();
-						async function sample()
-						{
+						async function sample(){
 							let delayres = await delay(5000);
-							if(document.getElementById('solved')==null)
-							{
+							if(document.getElementById('solved')==null){
 								setTimeout(start_solve, 4000);
 							}
 							else{
-								if(auto_submit==true)
-								{
+								if(auto_submit==true){
 									var afterElement;
 									let frames = document.getElementsByTagName("iframe");
-									for(let i = 0; i < frames.length; i++)
-									{
-										if(frames[i].offsetParent!=null)
-										{
+									for(let i = 0; i < frames.length; i++){
+										if(frames[i].offsetParent!=null){
 											let src = frames[i].getAttribute('src');
-											if(src != null && src.startsWith("https://www.google.com/recaptcha"))
-											{
+											if(src != null && src.startsWith("https://www.google.com/recaptcha")){
 												id = getParameterByName("k", src);
-												if(id != "" && id != null && id != "6LfUZKkUAAAAAJ6J-iUArW3Sva3Iyxxitf8tDmoW")
-												{
+												if(id != "" && id != null && id != "6LfUZKkUAAAAAJ6J-iUArW3Sva3Iyxxitf8tDmoW"){
 													afterElement = frames[i];
 													break;
 												}
