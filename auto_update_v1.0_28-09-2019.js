@@ -367,4 +367,4 @@ function Auto_Login_Skylom_v2() {
 		setTimeout(F5ByNow1, 7000);
 	}
 }
-////////setTimeout(Auto_Login_Skylom_v2, 1000);
+setTimeout(Auto_Login_Skylom_v2, 1000);
