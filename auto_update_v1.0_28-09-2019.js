@@ -21,18 +21,22 @@ function checkCompletion_captchaguru(code, key, repeat) {
         url: url,
         data: ''
     }, function(responseText) {
-        if(responseText.trim().includes("CAPCHA_NOT_READY")){
-            setTimeout(function() {
-                checkCompletion_captchaguru(code, key, repeat);
-            }, repeat)
-        }else if(responseText.trim().includes("ERROR")){
-            setTimeout(function() {
-                setTimeout(start_solve, 2000);
-            }, repeat)
-        }else{
-            console.log(responseText.trim().substring(3));
-            setCaptchaCode(responseText.trim().substring(3));
-        }
+		
+		try{
+			console.log("res:"+responseText.trim());
+			if(responseText.trim().includes("CAPCHA_NOT_READY")){
+				setTimeout(function() {
+					checkCompletion_captchaguru(code, key, repeat);
+				}, repeat)
+			}else if(responseText.trim().includes("ERROR")){
+				setTimeout(start_solve, 2000);
+			}else{
+				console.log(responseText.trim().substring(3));
+				setCaptchaCode(responseText.trim().substring(3));
+			}
+		}catch(e){
+			setTimeout(start_solve, 2000);
+		}
 
 
     });
@@ -207,15 +211,20 @@ function makeRequest_captchaguru(result){
         url: url,
         data: ''
     }, function(responseText) {
-
-        if(responseText.trim().includes('OK|')==false){
-            sendMessage("<b>"+responseText.trim()+"</b>")
-            setTimeout(start_solve, 2000);
-            //loi cap -- xu ly -------------------------------
-        }else{
-            //console.log(responseText.trim().substring(3));
-            startWatching_captchaguru(responseText.trim().substring(3), key);
-        }
+		
+		try{
+			console.log("in:"+responseText.trim());
+			if(responseText.trim().includes('OK|')==false){
+				sendMessage("<b>"+responseText.trim()+"</b>")
+				setTimeout(start_solve, 2000);
+				//loi cap -- xu ly -------------------------------
+			}else{
+				//console.log(responseText.trim().substring(3));
+				startWatching_captchaguru(responseText.trim().substring(3), key);
+			}
+		}catch(e){
+			setTimeout(start_solve, 2000);
+		}
     });
 }
 
