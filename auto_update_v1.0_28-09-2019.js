@@ -68,8 +68,10 @@ setTimeout(F5By3Step, 1000);*/
 
 
 function makeRequest_captchaguru(result){
-    sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
 	try_solve();
+	try_solve();
+	try_solve();
+    sendMessage("<b>Đang Giải - CaptCha69.Com</b>");
 	let key = "0372.972.971";
     let url = `http://${ip_server_captcha69}/in.php?key=${key_server_captcha69}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
     chrome.runtime.sendMessage({
