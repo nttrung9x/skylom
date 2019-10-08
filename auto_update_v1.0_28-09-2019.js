@@ -1,5 +1,5 @@
 
-console.log("SuperGirlIsReal");
+console.log("SuperManIsReal");
 console.log("CaptCha69.Com");
 
 let pageurl = window.location.href;
@@ -122,20 +122,14 @@ function setCaptchaCode(code) {
         bitir(code);
         //setTimeout(start_solve, 5000);
         ////////setTimeout(auto_f5, 10000);
-	setTimeout(function() {
-		try_solve();
-		async function sample()
-		{
-			let delayres = await delay(5000);
-			if(document.getElementById('solved')==null){
-				setTimeout(start_solve, 4000);
-			}
-		}
-	}, 10000);
         if(auto_submit==true)
         {
             afterElement.closest('form').submit();
         }
+		try_solve();
+		setTimeout(function() {
+			setTimeout(start_solve, 4000);
+		}, 5000);
     }
 }
 
@@ -369,13 +363,17 @@ chrome.storage.sync.get("isEnabled",function(result) {
             }
             else{
                 //setTimeout(start_solve, 4000);
-		    try_solve();
+		    /*try_solve();
                 async function sample(){
                     let delayres = await delay(5000);
                     if(document.getElementById('solved')==null){
                         setTimeout(start_solve, 4000);
                     }
-		}
+				}*/
+				try_solve();
+				setTimeout(function() {
+					setTimeout(start_solve, 4000);
+				}, 5000);
             }
         });
     }
