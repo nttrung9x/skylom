@@ -69,35 +69,9 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-let pageurlv2 = window.location.href;
-if(pageurlv2.includes("skylom.com/videos"))
-{
-	var src = document.documentElement.innerHTML;
-	if(src.includes('youtube.com/embed'))
-	{
-		var start3 = src.indexOf('<iframe style="position: absolute; left: 0px; top: 0px;" width="100%" height="100%" id="video_player" src="https://www.youtube.com/embed/');
-		var new_src = src.slice(start3+131,start3+159);
-		var start3 = new_src.indexOf("embed");
-		var end3 = new_src.indexOf("?");
-		var videoId = new_src.slice(start3+6,end3);
-		let urlvideoId = `http://ffmacros.com/_skylom/id_category_ytb.php?key=emyeusss7&idytb=`+videoId;
-		chrome.runtime.sendMessage(
-		{
-			method: "GET",
-			action: "xhttp",
-			url: urlvideoId,
-			data: ""
-		},function(responseTextvideoId) {
-			}
-		);
-	}
-}
-
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode);
 }
-
 function setChecked(interval){
     let check = document.createElement("img");
     check.src = chrome.extension.getURL("./icons/check.png");
@@ -106,42 +80,34 @@ function setChecked(interval){
     check.style.position = "absolute";
     insertAfter(check, afterElement);
 }
-
-function auto_f5() 
-{
-	location.reload();
-}
-
 function setCaptchaCode(code) {
     let ele = document.getElementsByClassName("g-recaptcha-response")[0];
     console.log(ele);
     sendMessage("<b>XONG</b>");
     setChecked();
+
     if(ele != null){
         ele.innerHTML = code;        
         bitir(code);
-        //setTimeout(start_solve, 5000);
-        ////////setTimeout(auto_f5, 10000);
+        
+
+
+        setTimeout(start_solve, 10000);
+
         if(auto_submit==true)
         {
             afterElement.closest('form').submit();
         }
-	    
-	    setTimeout(function() {
-                try_solve();
-		setTimeout(function() {
-			setTimeout(start_solve, 4000);
-		}, 5000);
-            }, 10000);
-		
     }
 }
+
 
 function bitir(code)
 {
     var taskSolution=code;
     var injectedCode = "(" + function(taskSolution) {
         var recaptchaCallbackAlreadyFired = false;
+
         var recursiveCallbackSearch = function(object, solution, currentDepth, maxDepth) {
             console.log(object);
             if (recaptchaCallbackAlreadyFired) {
@@ -169,17 +135,35 @@ function bitir(code)
                 } catch (e) {}
             }
         };
+
         if (!recaptchaCallbackAlreadyFired) {
-            if (typeof ___grecaptcha_cfg != "undefined" && typeof ___grecaptcha_cfg.clients != "undefined") {              
+            //console.log(___grecaptcha_cfg);
+            //console.log(___grecaptcha_cfg.clients);
+            if (typeof ___grecaptcha_cfg != "undefined" && typeof ___grecaptcha_cfg.clients != "undefined") {
+                //////console.log("111111111");                
                 var oneVisibleRecaptchaClientKey = null;
                 visible_recaptcha_element_search_loop: for (var i in ___grecaptcha_cfg.clients) {
                     for (var j in ___grecaptcha_cfg.clients[i]) {
+                        //console.log("1  "+___grecaptcha_cfg.clients[i][j]);
+                        //console.log("2  "+typeof ___grecaptcha_cfg.clients[i][j].nodeName);
+                        //console.log("3  "+typeof ___grecaptcha_cfg.clients[i][j].innerHTML);
+                        ////console.log("4  "+typeof ___grecaptcha_cfg.clients[i][j].innerHTML.indexOf("iframe"));
                         if (___grecaptcha_cfg.clients[i][j] && typeof ___grecaptcha_cfg.clients[i][j].nodeName == "string" && typeof ___grecaptcha_cfg.clients[i][j].innerHTML == "string" && typeof ___grecaptcha_cfg.clients[i][j].innerHTML.indexOf("iframe") != -1) {
+                            //////console.log("22222222");
+                            //console.log("5  "+___grecaptcha_cfg.clients[i][j].offsetHeight);
+                            //console.log("6  "+___grecaptcha_cfg.clients[i][j].childNodes.length);
+                            //console.log("7 "+___grecaptcha_cfg.clients[i][j].childNodes[0].offsetHeight);
+                            //console.log("8  "+___grecaptcha_cfg.clients[i][j].dataset.size);
                             if (___grecaptcha_cfg.clients[i][j].offsetHeight != 0 && ___grecaptcha_cfg.clients[i][j].childNodes.length && ___grecaptcha_cfg.clients[i][j].childNodes[0].offsetHeight != 0 || ___grecaptcha_cfg.clients[i][j].dataset.size == "invisible") {
+                                //////console.log("33333333");
                                 if (oneVisibleRecaptchaClientKey === null) {
+                                    //console.log("9  "+oneVisibleRecaptchaClientKey);
+
                                     oneVisibleRecaptchaClientKey = i;
+//console.log("10  "+oneVisibleRecaptchaClientKey);
                                     break
                                 } else {
+                                    //////console.log("555555555");
                                     oneVisibleRecaptchaClientKey = null;
                                     break visible_recaptcha_element_search_loop
                                 }
@@ -187,7 +171,11 @@ function bitir(code)
                         }
                     }
                 }
+//console.log("11  "+oneVisibleRecaptchaClientKey );
                 if (oneVisibleRecaptchaClientKey !== null) {
+                    //////console.log("6666666666");
+                    //console.log("12  "+___grecaptcha_cfg.clients[oneVisibleRecaptchaClientKey]);
+                    //console.log("13  "+taskSolution);
                     recursiveCallbackSearch(___grecaptcha_cfg.clients[oneVisibleRecaptchaClientKey], taskSolution, 1, 2)
                 }
             }
@@ -201,7 +189,7 @@ function bitir(code)
 
 function setupMessageBox() {
     let image = '<img src="' + chrome.extension.getURL('./icons/icon.png') + '" align="left" style="margin-right: 4px;" />';
-    message.innerHTML = "<b>Solving captcha...</b>";
+    message.innerHTML = "<b>Đang Giải</b>";
     let container = document.createElement('div');
     container.className = 'ReCaptcha_solver';
     container.innerHTML = image;
@@ -214,24 +202,51 @@ function setupMessageBox() {
     container.style.boxSizing = "border-box"
     container.style.width = "302px";
     container.style.margin = "-4px 2px 0 0";
+
     insertAfter(container, afterElement);
+    // afterElement.appendChild(message);
 }
 function sendMessage(str){
     message.innerHTML = str;
 }
 
 function startWatching_captchaguru(code, key) {
-    let initial = 7000, repeat = 8000;
+    let initial = 7000, repeat = 5000;
     setTimeout(function() {
         checkCompletion_captchaguru(code, key, repeat);
     }, initial);
 }
 
+function makeRequest_captchaguru(result){
+    sendMessage("<b>Captcha69.Com</b>");
+    let key = result.apiKey;
+    let url = `http://171.246.119.207/in.php?key=${key}&googlekey=${id}&method=userrecaptcha&pageurl=${pageurl}&vendor_id=3`;
+    chrome.runtime.sendMessage({
+        //method: 'POST',
+        method: 'GET',
+        action: 'xhttp',
+        url: url,
+        data: ''
+    }, function(responseText) {
+
+        if(responseText.trim().includes('OK|')==false){
+            sendMessage("<b>"+responseText.trim()+"</b>")
+            setTimeout(start_solve, 2000);
+            //loi cap -- xu ly -------------------------------
+        }else{
+            //console.log(responseText.trim().substring(3));
+            startWatching_captchaguru(responseText.trim().substring(3), key);
+        }
+    });
+}
+
 function onGotauto(item){
     auto_submit=item.Auto;
+
 }
 function onGotAutoClick(item){
     auto_click=item.AutoClick;
+
 }
 
 function delete_div(){
@@ -262,6 +277,7 @@ function try_solve(){
     script.textContent = actualCode;
     (document.head||document.documentElement).appendChild(script);
     script.remove();
+
 }
 
 function start_solve(){
@@ -332,6 +348,7 @@ function Auto_Login_Skylom_v2() {
 setTimeout(Auto_Login_Skylom_v2, 1000);
 
 
+
 chrome.storage.sync.get("isEnabled",function(result) {
     if(result.isEnabled){
         chrome.storage.sync.get("Auto",onGotauto);
@@ -366,18 +383,7 @@ chrome.storage.sync.get("isEnabled",function(result) {
                 sample();
             }
             else{
-                //setTimeout(start_solve, 4000);
-		    /*try_solve();
-                async function sample(){
-                    let delayres = await delay(5000);
-                    if(document.getElementById('solved')==null){
-                        setTimeout(start_solve, 4000);
-                    }
-				}*/
-				//try_solve();
-				//setTimeout(function() {
-					setTimeout(start_solve, 4000);
-				//}, 5000);
+                setTimeout(start_solve, 4000);
             }
         });
     }
