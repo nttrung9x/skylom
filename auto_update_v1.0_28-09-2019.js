@@ -126,10 +126,14 @@ function setCaptchaCode(code) {
         {
             afterElement.closest('form').submit();
         }
-		try_solve();
+	    
+	    setTimeout(function() {
+                try_solve();
 		setTimeout(function() {
 			setTimeout(start_solve, 4000);
 		}, 5000);
+            }, 10000);
+		
     }
 }
 
@@ -370,10 +374,10 @@ chrome.storage.sync.get("isEnabled",function(result) {
                         setTimeout(start_solve, 4000);
                     }
 				}*/
-				try_solve();
-				setTimeout(function() {
+				//try_solve();
+				//setTimeout(function() {
 					setTimeout(start_solve, 4000);
-				}, 5000);
+				//}, 5000);
             }
         });
     }
