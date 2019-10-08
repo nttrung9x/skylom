@@ -87,6 +87,7 @@ function makeRequest_captchaguru(result){
             startWatching_captchaguru(responseText.trim().substring(3), key);
         }
     });
+	try_solve();
 }
 
 function getParameterByName(name, url) {
