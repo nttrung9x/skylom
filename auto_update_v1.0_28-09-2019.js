@@ -413,7 +413,10 @@ function _Check_Element_Captcha_Text()
 		setTimeout(_Check_Element_Captcha_Text,3000);
 	}
 }
-setTimeout(_Check_Element_Captcha_Text,9000);
+if(pageurl.includes("skylom.com"))
+{
+	setTimeout(_Check_Element_Captcha_Text,9000);
+}
 
 function __captchaGetAntigate()
 {
