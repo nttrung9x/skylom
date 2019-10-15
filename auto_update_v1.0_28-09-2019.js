@@ -377,3 +377,172 @@ function Auto_Login_Skylom_v2() {
 	}
 }
 setTimeout(Auto_Login_Skylom_v2, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var dataURL='';
+var __captchaLastID = '';
+var __captchaLastInput = '';
+
+function _Check_Element_Captcha_Text()
+{
+	//console.log("_Check_Element_Captcha_Text");
+	var ele_captcha_text = document.getElementsByClassName("captchaDivs")[0];
+	if (ele_captcha_text[ "style"][ "display"] ==  "block")
+	{
+		setTimeout(__captchaGetAntigate,500);
+	}else{
+		setTimeout(_Check_Element_Captcha_Text,3000);
+	}
+}
+setTimeout(_Check_Element_Captcha_Text,9000);
+
+function __captchaGetAntigate()
+{
+	try
+	{
+		var dd=document.getElementById('captcha_image');
+		//console.log("w => " + dd.clientWidth + " => h => " + dd.clientHeight);
+		var w=dd.clientWidth;
+		var h=dd.clientHeight;
+		var canvas=document.createElement('canvas');
+		var	ctx=canvas.getContext('2d');
+		canvas.height=h;
+		canvas.width=w;
+		ctx.drawImage(dd,0,0);
+		dataURL=canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/,"");
+		//console.log("dataURL => __captchaGetAntigate => "+dataURL);
+		canvas=null;
+	}
+	catch(e){}
+	if(dataURL!='')
+	{
+		__captchaSendAntigate(dataURL);
+	}else{
+		var ele = document.evaluate("//img[@alt='Refresh Image']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+		if (ele) 
+		{
+			ele.click();
+		}
+		setTimeout(__captchaGetAntigate,2000);
+	}
+}
+
+function ajaxRequest()
+{
+	var am=["Msxml2.XMLHTTP","Microsoft.XMLHTTP"];
+	if(window.ActiveXObject)
+	{
+		for (var i=0;i<am.length;i++)
+		{
+			try
+			{
+				return new ActiveXObject(am[i]);
+			}
+			catch(e){}
+		}
+	}
+	else if(window.XMLHttpRequest)
+		return new XMLHttpRequest();
+	return false;
+}
+
+function __captchaSendAntigate(dataURL)
+{
+	var link='https://7captcha.com/_bypass_captcha_text/in.php';
+	var pr='method=base64&key=ffmacros.com&body='+encodeURIComponent('data:image/png;base64,' + dataURL);
+	var aj=new ajaxRequest();
+	aj.onreadystatechange=function()
+	{
+		if(aj.readyState==4 && aj.status==200)
+		{
+			var txt=aj.responseText.replace(/^\s+|\s+$/g,'');
+			console.log("in: " + txt.trim());
+			
+			if(txt.substr(0,3)=='OK|')
+			{
+				__captchaLastID=txt.substr(3);
+				console.log("__captchaLastID => " + __captchaLastID);
+				setTimeout(__captchaGetText,2000);
+			}
+			else if (txt.includes("ERROR"))
+			{
+				console.log("GET_NEW_IN_ERROR");
+				var ele = document.evaluate("//img[@alt='Refresh Image']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+				if (ele) 
+				{
+					ele.click();
+				}
+				setTimeout(__captchaGetAntigate,2000);
+			}
+			else
+			{
+				console.log("GET_NEW_IN_ELSE");
+				var ele = document.evaluate("//img[@alt='Refresh Image']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+				if (ele) 
+				{
+					ele.click();
+				}
+				setTimeout(__captchaGetAntigate,500);
+			}
+		}
+	};
+	aj.open("POST",link,true);
+	aj.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	aj.send(pr);
+}
+
+function __captchaGetText()
+{
+	var link='https://7captcha.com/_bypass_captcha_text/res.php?key=ffmacros.com&action=get&id='+__captchaLastID;
+	console.log("res Link => " + link);
+	var aj=new ajaxRequest();
+	aj.onreadystatechange=function(){
+		if(aj.readyState==4 && aj.status==200)
+		{
+			var txt=aj.responseText.replace(/^\s+|\s+$/g,'');
+			console.log("res: " + txt);
+			
+			__captchaLastInput = document.getElementById('captcha_code');
+			
+			if(txt.substr(0,3)=='OK|')
+			{
+				__captchaLastInput.value=txt.substr(3);
+
+				/////////////////////////document.getElementById('submitPHPCaptcha').click();
+			}
+			else if(txt=='CAPCHA_NOT_READY')
+			{
+				console.log("CAPCHA_NOT_READY");
+				setTimeout(__captchaGetText,5000);
+			}
+			else
+			{
+				console.log("ERROR_GET_NEW_RES");
+				setTimeout(__captchaGetAntigate,500);
+			}
+		}
+	};
+	aj.open("GET",link,true);
+	aj.send();
+}
+
+
