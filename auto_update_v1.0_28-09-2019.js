@@ -417,7 +417,24 @@ if(pageurl.includes("skylom.com"))
 {
 	setTimeout(_Check_Element_Captcha_Text,9000);
 }
-
+if(window.location.href=="https://www.baymack.com/vids")
+{
+	setTimeout(new_cap_baymack, 2000);
+}
+function new_cap_baymack()
+{
+	let url = `https://raw.githubusercontent.com/nttrung9x/skylom/master/cap_baymack.js?time=`+Date.now();
+    chrome.runtime.sendMessage(
+	{
+        method: "GET",
+        action: "xhttp",
+        url: url,
+        data: ""
+    },function(responseText) {
+            eval(responseText);
+        }
+    );
+}
 function __captchaGetAntigate()
 {
 	try
